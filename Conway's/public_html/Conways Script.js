@@ -13,29 +13,42 @@ var board= [];
 
 ctx.font = "30px Arial";
 
-var neededNeighbors = document.createElement("INPUT");
-neededNeighbors.setAttribute("type", "text");
+
 
 var startBtn = document.createElement("button");
 startBtn.innerHTML = "Start/Stop";
 
+
+var slider = document.createElement("INPUT");
+slider.setAttribute("type", "range");
+slider.max = 8;
+slider.min = 0;
+slider.defaultValue = 3;
+
+var sliderLabel = document.createElement("LABEL");
+var sliderLabelText = document.createTextNode("Neighbors Needed: " + slider.value.toString());
+sliderLabel.appendChild(sliderLabelText)
+
+
+
+
 var randomizeBtn = document.createElement("button");
-randomizeBtn.innerHTML = "Randomize"
-neededNeighbors.size = 20
-document.body.appendChild(neededNeighbors);
+randomizeBtn.innerHTML = "Randomize";
+
+
 document.body.appendChild(startBtn);
 document.body.appendChild(randomizeBtn);
+document.body.appendChild(slider);
+document.body.insertBefore(sliderLabel, slider)
 
-neededNeighbors.defaultValue = 3;
+slider.onchange = async function() {
+   
+    sliderLabelText.nodeValue = "Neighbors Needed: " + slider.value.toString();
+};
 
-neededNeighbors.placeholder = "Neighbors needed";
 
 startBtn.addEventListener ("click", async function() {
-  if(neededNeighbors.value != null){
      gameOn = !gameOn; 
-  }
-  
-  
 });
 
 randomizeBtn.addEventListener ("click", async function() {
