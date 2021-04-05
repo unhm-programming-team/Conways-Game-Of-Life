@@ -176,7 +176,7 @@ function clickCanvas(ev) {
                 ctx.clearRect(square_x*square_width, square_y*square_height, square_width, square_height)
             }
             else {
-                ctx.fillRect(square_x*square_width, square_y*square_height, square_width, square_height); dde
+                ctx.fillRect(square_x*square_width, square_y*square_height, square_width, square_height); 
             }
             
         }
