@@ -150,5 +150,38 @@ function NeighborCount(x,y ,board){
         return counter;
     } 
 
-
+function clickCanvas(ev) {
+    /**
+     * Flips the cell in the 2d board array to the opposite value. 1 becomes 0 and 0 becomes 1.
+     * Calculates cell click location from mouse coordinates and canvas bounds.
+     * Draws a clear rectangle on the canvas if the new value is 1.
+     * Draws a black rectangle on the canvas if the new value is 0.
+     * @param {ev} MouseEvent A mouse click event on the Canvas object.
+     */
+    canvas = ev.target
+    canvas_bounds = canvas.getBoundingClientRect()
+    square_width = canvas.width / boardwidth
+    square_height = canvas.height / boardheight
+    canvas_x = ev.clientX - canvas_bounds.x
+    canvas_y = ev.clientY - canvas_bounds.y
+    square_x = Math.floor(canvas_x / square_width)
+    square_y = Math.floor(canvas_y / square_height)
+    if(square_x < board.length) { // a rename of the global var board will require this to be refactored
+        column = board[square_x]
+        if(square_y < column.length) {
+            cell = column[square_y]
+            opposite_cell = (cell == 1) ? 0 : 1
+            board[square_x][square_y] = opposite_cell
+            if (opposite_cell == 1) {
+                ctx.clearRect(square_x*square_width, square_y*square_height, square_width, square_height)
+            }
+            else {
+                ctx.fillRect(square_x*square_width, square_y*square_height, square_width, square_height); dde
+            }
+            
+        }
+    }
+}
+    
+c.addEventListener('click', clickCanvas)
 
