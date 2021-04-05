@@ -9,7 +9,7 @@ var ctx = c.getContext("2d");
 var boardwidth = 60;
 var boardheight = 60;
 var gameOn = false;
-var board= [];
+var board = [];
 
 ctx.font = "30px Arial";
 
@@ -21,13 +21,13 @@ startBtn.innerHTML = "Start/Stop";
 
 var slider = document.createElement("INPUT");
 slider.setAttribute("type", "range");
-slider.max = 8;
-slider.min = 0;
-slider.defaultValue = 3;
+slider.max = 1000;
+slider.min = 10;
+slider.defaultValue = 300;
 
 var sliderLabel = document.createElement("LABEL");
-var sliderLabelText = document.createTextNode("Neighbors Needed: " + slider.value.toString());
-sliderLabel.appendChild(sliderLabelText)
+var sliderLabelText = document.createTextNode("Time Between Ticks (sec) : " + (slider.value/1000).toString());
+sliderLabel.appendChild(sliderLabelText);
 
 
 
@@ -43,7 +43,7 @@ document.body.insertBefore(sliderLabel, slider)
 
 slider.onchange = async function() {
    
-    sliderLabelText.nodeValue = "Neighbors Needed: " + slider.value.toString();
+    sliderLabelText.nodeValue = ("Time Between Ticks (sec) : " + (slider.value/1000).toString());
 };
 
 
@@ -82,7 +82,7 @@ randomizeBtn.addEventListener ("click", async function() {
 });
 var body = document.getElementsByTagName("div")[0];
 body.appendChild(startBtn);
-body.appendChild(randomizeBtn)
+body.appendChild(randomizeBtn);
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -125,7 +125,7 @@ async function test(){
                     }
                 }
 
-               await sleep(1000);
+               await sleep(slider.value);
          
         }
         await sleep(1);
@@ -158,22 +158,22 @@ function clickCanvas(ev) {
      * Draws a black rectangle on the canvas if the new value is 0.
      * @param {ev} MouseEvent A mouse click event on the Canvas object.
      */
-    canvas = ev.target
-    canvas_bounds = canvas.getBoundingClientRect()
-    square_width = canvas.width / boardwidth
-    square_height = canvas.height / boardheight
-    canvas_x = ev.clientX - canvas_bounds.x
-    canvas_y = ev.clientY - canvas_bounds.y
-    square_x = Math.floor(canvas_x / square_width)
-    square_y = Math.floor(canvas_y / square_height)
+    canvas = ev.target;
+    canvas_bounds = canvas.getBoundingClientRect();
+    square_width = canvas.width / boardwidth;
+    square_height = canvas.height / boardheight;
+    canvas_x = ev.clientX - canvas_bounds.x;
+    canvas_y = ev.clientY - canvas_bounds.y;
+    square_x = Math.floor(canvas_x / square_width);
+    square_y = Math.floor(canvas_y / square_height);
     if(square_x < board.length) { // a rename of the global var board will require this to be refactored
-        column = board[square_x]
+        column = board[square_x];
         if(square_y < column.length) {
-            cell = column[square_y]
-            opposite_cell = (cell == 1) ? 0 : 1
-            board[square_x][square_y] = opposite_cell
-            if (opposite_cell == 1) {
-                ctx.clearRect(square_x*square_width, square_y*square_height, square_width, square_height)
+            cell = column[square_y];
+            opposite_cell = (cell === 1) ? 0 : 1;
+            board[square_x][square_y] = opposite_cell;
+            if (opposite_cell === 1) {
+                ctx.clearRect(square_x*square_width, square_y*square_height, square_width, square_height);
             }
             else {
                 ctx.fillRect(square_x*square_width, square_y*square_height, square_width, square_height); 
@@ -183,5 +183,5 @@ function clickCanvas(ev) {
     }
 }
     
-c.addEventListener('click', clickCanvas)
+c.addEventListener('click', clickCanvas);
 
