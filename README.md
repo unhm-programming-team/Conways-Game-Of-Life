@@ -9,7 +9,7 @@ In the HTML file, click "Start/Stop" to begin the game, or click "Randomize" to 
 Conway's Game of Life is a game where a set of cells automatically update according to a set of rules.
 
 Rules:
-	- Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-	- Any live cell with two or three live neighbours lives on to the next generation.
-	- Any live cell with more than three live neighbours dies, as if by overpopulation.
-	- Any dead cell with exactly three live neighbours becomes a live cell as if by reproduction.
+	<br>- Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+	<br>- Any live cell with two or three live neighbours lives on to the next generation.
+	<br>- Any live cell with more than three live neighbours dies, as if by overpopulation.
+	<br>- Any dead cell with exactly three live neighbours becomes a live cell as if by reproduction.
