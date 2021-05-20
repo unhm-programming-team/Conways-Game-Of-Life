@@ -53,7 +53,6 @@ startBtn.addEventListener ("click", async function() {
 
 randomizeBtn.addEventListener ("click", async function() {
   var board = [];
-
         var faceX = 0;
         ctx.clearRect(0, 0, c.width, c.height);
         
@@ -105,9 +104,10 @@ function random(gameboard){
 }
 async function test(){
     while(true){
+        board = random(board);
     while(gameOn){
 
-        board = random(board);
+        board = Generate(board);
         
         for(var x = 0; x < boardwidth; x++){
             
@@ -120,22 +120,40 @@ async function test(){
                            ctx.stroke();
                            
                         }
-                     
-                        
+                       
                     }
                 }
-
+               
                await sleep(slider.value);
          
         }
         await sleep(1);
     }   
  
-    }
+ }
     
 test();  
 
-
+function Generate(oldboard){
+    var newboard = oldboard;
+    for(let i = 0; i < boardwidth-1; i++){
+                for(let j = 0; j < boardheight-1; j++){
+                    if(NeighborCount(i,j,oldboard)<=1){
+                        newboard[i][j] = 0;
+                    }
+                    else if(NeighborCount(i,j,oldboard)===3){
+                       newboard[i][j] = 1; 
+                    }
+                    else if(NeighborCount(i,j,oldboard)>=3){
+                       newboard[i][j] = 0; 
+                    }
+                    else{
+                    }
+                        
+                }
+            }
+        return newboard;
+}
 function NeighborCount(x,y ,board){
         var counter = 0;
        
@@ -146,7 +164,7 @@ function NeighborCount(x,y ,board){
                     }               
             }
         }    
-        
+        console.log(counter);
         return counter;
     } 
 
