@@ -165,16 +165,18 @@ function Generate(oldboard){
     var newboard = oldboard;
     for(let i = 0; i < boardwidth-1; i++){
                 for(let j = 0; j < boardheight-1; j++){
-                    if(NeighborCount(i,j,oldboard)<2){
-                       newboard[i][j] = 0;
-                    }
-                    if(NeighborCount(i,j,oldboard)===3){
-                       newboard[i][j] = 1; 
-                    }
-                    if(NeighborCount(i,j,oldboard)>3){
-                       newboard[i][j] = 0; 
-                    }
+                    if (oldboard[i][j] === 0){
+                        
+                        if(NeighborCount(i,j,oldboard)===3){
+                            newboard[i][j] = 1; 
+                        }
+                        
+                    } 
                     else{
+                        if(NeighborCount(i,j,oldboard)<2 || NeighborCount(i,j,oldboard)>3){
+                            newboard[i][j] = 0;
+                        }
+                        
                         
                     }
                         
@@ -188,14 +190,15 @@ function NeighborCount(x,y ,board){
         for(let row=-1;row <= 1;row++){
             for(let col = -1;col <= 1;col++){
                 if(!(row==0&&col==0)){
-                  if ((x+row>=0)&& (y + col>=0 )&& (x+row < boardwidth)&& (y + col <boardheight ) ){
+                  
+                  if (x+row>=0  && y + col>=0 && x+row < boardwidth && y + col <boardheight ){
                      counter += board[x+row][y+col];
                     }  
                 }
                                
             }
         }    
-        console.log(counter);
+        
         return counter;
     } 
 
@@ -230,6 +233,7 @@ function clickCanvas(ev) {
             
         }
     }
+    console.log(NeighborCount(square_x, square_y, board))
 }
     
 c.addEventListener('click', clickCanvas);
