@@ -113,13 +113,19 @@ async function test(){
             
             for(var y = 0; y < boardheight; y++){  
                 
-                        if(board[x][y] === 0){
+                        if(board[x][y] === 1){
                            ctx.beginPath();
                            ctx.fillRect(x*(c.width/boardwidth), y*(c.height/boardheight), c.width/boardwidth, c.height/boardheight); 
                             //ctx.rect(x*10, y*10, c.height/boardheight, c.width/boardwidth);
-                           ctx.stroke();
-                           
+                           ctx.stroke(); 
                         }
+                        else{
+                           ctx.beginPath();
+                           ctx.clearRect(x*(c.width/boardwidth), y*(c.height/boardheight), c.width/boardwidth, c.height/boardheight); 
+                            //ctx.rect(x*10, y*10, c.height/boardheight, c.width/boardwidth);
+                           ctx.stroke(); 
+                        }
+                        
                        
                     }
                 }
@@ -138,16 +144,17 @@ function Generate(oldboard){
     var newboard = oldboard;
     for(let i = 0; i < boardwidth-1; i++){
                 for(let j = 0; j < boardheight-1; j++){
-                    if(NeighborCount(i,j,oldboard)<=1){
-                        newboard[i][j] = 0;
+                    if(NeighborCount(i,j,oldboard)<2){
+                       newboard[i][j] = 0;
                     }
-                    else if(NeighborCount(i,j,oldboard)===3){
+                    if(NeighborCount(i,j,oldboard)===3){
                        newboard[i][j] = 1; 
                     }
-                    else if(NeighborCount(i,j,oldboard)>=3){
+                    if(NeighborCount(i,j,oldboard)>3){
                        newboard[i][j] = 0; 
                     }
                     else{
+                        
                     }
                         
                 }
