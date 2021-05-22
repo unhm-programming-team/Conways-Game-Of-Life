@@ -6,8 +6,8 @@
 
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
-var boardwidth = 60;
-var boardheight = 60;
+var boardwidth = 90;
+var boardheight = 90;
 var gameOn = false;
 var board = [];
 
@@ -162,15 +162,16 @@ async function test(){
 test();  
 
 function Generate(oldboard){
-    var newboard = oldboard;
-    for(let i = 0; i < boardwidth-1; i++){
-                for(let j = 0; j < boardheight-1; j++){
-                    if (oldboard[i][j] === 0){
-                        
+   
+    var newboard = oldboard.map(function(arr) {
+    return arr.slice();
+});
+    for(let i = 0; i <= boardwidth-1; i++){
+                for(let j = 0; j <= boardheight-1; j++){
+                    if (oldboard[i][j] === 0){                      
                         if(NeighborCount(i,j,oldboard)===3){
                             newboard[i][j] = 1; 
                         }
-                        
                     } 
                     else{
                         if(NeighborCount(i,j,oldboard)<2 || NeighborCount(i,j,oldboard)>3){
