@@ -103,8 +103,9 @@ function random(gameboard){
         return gameboard;
 }
 async function test(){
+    board = random(board);
     while(true){
-        board = random(board);
+        
     while(gameOn){
 
         board = Generate(board);
@@ -133,6 +134,26 @@ async function test(){
                await sleep(slider.value);
          
         }
+        for(var x = 0; x < boardwidth; x++){
+            
+            for(var y = 0; y < boardheight; y++){  
+                
+                        if(board[x][y] === 1){
+                           ctx.beginPath();
+                           ctx.fillRect(x*(c.width/boardwidth), y*(c.height/boardheight), c.width/boardwidth, c.height/boardheight); 
+                            //ctx.rect(x*10, y*10, c.height/boardheight, c.width/boardwidth);
+                           ctx.stroke(); 
+                        }
+                        else{
+                           ctx.beginPath();
+                           ctx.clearRect(x*(c.width/boardwidth), y*(c.height/boardheight), c.width/boardwidth, c.height/boardheight); 
+                            //ctx.rect(x*10, y*10, c.height/boardheight, c.width/boardwidth);
+                           ctx.stroke(); 
+                        }
+                        
+                       
+                    }
+                }
         await sleep(1);
     }   
  
@@ -164,11 +185,14 @@ function Generate(oldboard){
 function NeighborCount(x,y ,board){
         var counter = 0;
        
-        for(let row=-1;row<2;row++){
-            for(let col = -1;col<2;col++){
-                if ((x+row>=0)&& (y + col>=0 )&& (x+row<boardwidth)&& (y + col<boardheight ) && !(row==0&&col==0)){
+        for(let row=-1;row <= 1;row++){
+            for(let col = -1;col <= 1;col++){
+                if(!(row==0&&col==0)){
+                  if ((x+row>=0)&& (y + col>=0 )&& (x+row < boardwidth)&& (y + col <boardheight ) ){
                      counter += board[x+row][y+col];
-                    }               
+                    }  
+                }
+                               
             }
         }    
         console.log(counter);
